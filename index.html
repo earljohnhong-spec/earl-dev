@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pf-earlhong-dev | Portfolio</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Mobile Hamburger & Overlay -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+    <div class="overlay" id="overlay"
+        style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:99;"></div>
+
+    <!-- Single Page Application Landing Intro Mode built directly into Sidebar -->
+    <aside class="sidebar glass intro-mode" id="sidebar">
+        <!-- Center overlay for the Intro -->
+        <div class="intro-center" id="introCenter">
+            <div id="brandIntroContainer">
+                <a href="#about" class="brand intro-size" id="brandTitle">earl-dev<span>/</span></a>
+            </div>
+            <button id="introEnterBtn" class="intro-btn">open</button>
+        </div>
+
+        <div class="sidebar-header">
+            <div id="brandHeaderContainer">
+                <!-- Brand Title will be moved here by JS -->
+            </div>
+            <div class="sidebar-socials">
+                <a href="https://www.linkedin.com/in/earl-hong" target="_blank" class="social-btn"
+                    data-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=earljohnhong@gmail.com" target="_blank"
+                    class="social-btn" data-label="Gmail"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://drive.google.com/file/d/1kWNkyYCs88cEEWHF5AMI_mBzUJ8Cld82/view?usp=drive_link"
+                    target="_blank" class="social-btn" data-label="Resume"><i class="fa-solid fa-file-pdf"></i></a>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+
+            <ul class="nav-list" id="navList">
+                <!-- Full Tab Box Sliding Active Indicator -->
+                <div class="active-indicator" id="activeIndicator"></div>
+
+                <li class="sidebar-item active" data-target="about">About Me</li>
+                <li class="sidebar-item" data-target="projects">Projects</li>
+                <li class="sidebar-item" data-target="skills">Skills & Tools</li>
+                <li class="sidebar-item" data-target="experience">Experience</li>
+                <li class="sidebar-item" data-target="education">Education</li>
+                <li class="sidebar-item" data-target="contact">Contacts</li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer" id="sidebarFooter">
+            <p>&copy;2026 Earl-Dev <span class="footer-extra"> · Developed by Earl Hong</span></p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent">
+
+        <!-- About Section -->
+        <section id="about" class="section" style="position: relative;">
+            <div class="section-content about-section-content">
+
+                <!-- Wrapper for initial centered state -->
+                <div class="about-header-wrapper" id="aboutHeaderCenter">
+                    <h1 class="reveal-text gs-header" id="aboutHeader">About Me</h1>
+                </div>
+
+                <div class="about-container">
+                    <!-- Left: Profile Photo -->
+                    <div class="about-image-col gs-slide-right">
+                        <div class="portrait-mini">
+                            <img src="images/about-me/aboutme.jpg" alt="Earl John">
+                        </div>
+                    </div>
+
+                    <!-- Right: Text Content -->
+                    <div class="about-text-column">
+                        <div class="about-text gs-stagger">
+                            <p class="about-text-header">Hi there! I’m <strong>Earl John</strong></p>
+                            <p>A recent IT graduate and aspiring UI/UX designer and front-end developer.
+                                I enjoy creating digital experiences that are both visually appealing and functional,
+                                combining my skills in graphic design and short-video editing with Canva and CapCut.</p>
+                            <p>I’ve designed and developed materials and projects for organizations and companies,
+                                focusing
+                                on creativity, uniqueness, and professionalism.</p>
+                            <p>I’m passionate about building solutions that not only look great but also provide real
+                                value
+                                for users.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <!-- Background Marquee -->
+            <div class="projects-marquee-bg" id="projectsMarquee">
+                <div class="marquee-row row-1"></div>
+                <div class="marquee-row row-2"></div>
+                <div class="marquee-row row-3"></div>
+                <div class="marquee-overlay"></div>
+            </div>
+
+            <div class="section-content">
+                <div class="projects-header-wrapper" style="padding: 0 0 2rem 0; position: relative; min-height: 80px;">
+                    <h2 class="reveal-text gs-header" id="mainProjectsHeader" style="margin-bottom: 0;">Projects</h2>
+                    <h2 class="reveal-text" id="expandedTitleOverlay"
+                        style="position: absolute; top: 0; left: 0; right: 0; font-size: 3.5rem; margin-bottom: 0; opacity: 0; pointer-events: none; transform: translateX(-50px);">
+                        Category</h2>
+                </div>
+
+                <!-- Expanded Overlay Embed (Fills Projects Tab Container) -->
+                <div class="projects-container gs-project-cards">
+
+                    <!-- Embedded Expanded Project Grid -->
+                    <div class="expanded-view" id="expandedView">
+                        <!-- Modern floating close button -->
+                        <button class="expanded-close-btn" id="btnCloseExpanded" aria-label="Close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                        <!-- Grid layout: 2 rows, horizontally scrolling -->
+                        <div class="expanded-grid">
+                            <img src="https://picsum.photos/600/400?random=101" alt="Proj" class="grid-img">
+                            <img src="https://picsum.photos/600/400?random=102" alt="Proj" class="grid-img">
+                            <img src="https://picsum.photos/600/400?random=103" alt="Proj" class="grid-img">
+                            <img src="https://picsum.photos/600/400?random=104" alt="Proj" class="grid-img">
+                            <img src="https://picsum.photos/600/400?random=105" alt="Proj" class="grid-img">
+                            <img src="https://picsum.photos/600/400?random=106" alt="Proj" class="grid-img">
+                            <img src="https://picsum.photos/600/400?random=107" alt="Proj" class="grid-img">
+                            <img src="https://picsum.photos/600/400?random=108" alt="Proj" class="grid-img">
+                            <img src="https://picsum.photos/600/400?random=109" alt="Proj" class="grid-img">
+                            <img src="https://picsum.photos/600/400?random=110" alt="Proj" class="grid-img">
+                        </div>
+
+                        <!-- Inner Viewer Overlay -->
+                        <div class="inner-viewer-overlay" id="innerViewerOverlay">
+                            <div class="inner-viewer-content" id="innerViewerContent">
+                                <!-- Left side: Gallery -->
+                                <div class="iv-gallery">
+                                    <div class="iv-main-image">
+                                        <img src="https://picsum.photos/600/400?random=101" id="ivMainImg"
+                                            alt="Main Project Image">
+                                    </div>
+                                    <div class="iv-thumbnails">
+                                        <img src="https://picsum.photos/600/400?random=101"
+                                            class="iv-thumb active-thumb">
+                                        <img src="https://picsum.photos/600/400?random=102" class="iv-thumb">
+                                        <img src="https://picsum.photos/600/400?random=103" class="iv-thumb">
+                                        <img src="https://picsum.photos/600/400?random=104" class="iv-thumb">
+                                    </div>
+                                </div>
+                                <!-- Right side: Description -->
+                                <div class="iv-description">
+                                    <h3>Project Highlights</h3>
+                                    <p>Detailed insight into the creative and technical process. We emphasize clean
+                                        layout, intuitive navigation, and deeply integrated animations. Each project
+                                        focuses on balancing visual flair with absolute usability.</p>
+                                    <div class="iv-tags">
+                                        <span>UI/UX</span>
+                                        <span>Web Design</span>
+                                        <span>GSAP</span>
+                                        <span>Figma</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 1 -->
+                    <div class="project-category-card" onclick="openExpandedProj('Development Projects')">
+                        <img src="https://picsum.photos/800/1000?random=1" alt="Development" class="bg-img">
+                        <div class="card-title">Development<br>Projects</div>
+                        <div class="slide-overlay">
+                            <span class="see-all-text">See All &rarr;</span>
+                        </div>
+                    </div>
+                    <!-- Category 2 -->
+                    <div class="project-category-card" onclick="openExpandedProj('UI/UX Designs')">
+                        <img src="https://picsum.photos/800/1000?random=2" alt="UI" class="bg-img">
+                        <div class="card-title">UI/UX<br>Designs</div>
+                        <div class="slide-overlay">
+                            <span class="see-all-text">See All &rarr;</span>
+                        </div>
+                    </div>
+                    <!-- Category 3 -->
+                    <div class="project-category-card" onclick="openExpandedProj('Graphic Designs')">
+                        <img src="https://picsum.photos/800/1000?random=3" alt="Graphic" class="bg-img">
+                        <div class="card-title">Graphic<br>Designs</div>
+                        <div class="slide-overlay">
+                            <span class="see-all-text">See All &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="section-content">
+                <h2 class="reveal-text gs-header">Skills & Tools</h2>
+                <p class="section-subtitle">Tech Stack</p>
+                <div class="skills-grid">
+                    <div class="gs-skill">
+                        <div class="skill-info">
+                            <span class="skill-name"><i class="fa-brands fa-html5"></i> HTML</span>
+                            <span class="skill-pct">90%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:90%"></div>
+                        </div>
+                    </div>
+                    <div class="gs-skill">
+                        <div class="skill-info">
+                            <span class="skill-name"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+                            <span class="skill-pct">90%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:90%"></div>
+                        </div>
+                    </div>
+                    <div class="gs-skill">
+                        <div class="skill-info">
+                            <span class="skill-name"><i class="fa-brands fa-js"></i> JavaScript</span>
+                            <span class="skill-pct">80%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:80%"></div>
+                        </div>
+                    </div>
+                    <div class="gs-skill">
+                        <div class="skill-info">
+                            <span class="skill-name"><i class="fa-brands fa-python"></i> Python</span>
+                            <span class="skill-pct">5%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:5%"></div>
+                        </div>
+                    </div>
+                    <div class="gs-skill">
+                        <div class="skill-info">
+                            <span class="skill-name"><i class="fa-brands fa-java"></i> Java</span>
+                            <span class="skill-pct">1%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:1%"></div>
+                        </div>
+                    </div>
+                    <div class="gs-skill">
+                        <div class="skill-info">
+                            <span class="skill-name"><i class="fa-brands fa-php"></i> PHP</span>
+                            <span class="skill-pct">2%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:2%"></div>
+                        </div>
+                    </div>
+                    <div class="gs-skill">
+                        <div class="skill-info">
+                            <span class="skill-name"><i class="fa-brands fa-figma"></i> Figma</span>
+                            <span class="skill-pct">0%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:0%"></div>
+                        </div>
+                    </div>
+                    <div class="gs-skill">
+                        <div class="skill-info">
+                            <span class="skill-name"><i class="fa-solid fa-image"></i> Photoshop</span>
+                            <span class="skill-pct">10%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:10%"></div>
+                        </div>
+                    </div>
+                    <div class="gs-skill">
+                        <div class="skill-info">
+                            <span class="skill-name"><i class="fa-solid fa-pen-nib"></i> Canva</span>
+                            <span class="skill-pct">95%</span>
+                        </div>
+                        <div class="skill-bar-bg">
+                            <div class="skill-bar-fill" style="width:95%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section">
+            <div class="section-content">
+                <h2 class="reveal-text gs-header">Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item gs-timeline">
+                        <div class="timeline-dot"></div>
+                        <h3 style="font-size: 1.3rem; margin-bottom: 0.2rem; color: #fff;">Access Computer College
+                            (Project & Experiences)</h3>
+                        <div class="timeline-date" style="margin-bottom: 1rem;">Aug 2023 – Dec 2025</div>
+                        <div class="timeline-content">
+                            <div style="margin-bottom: 1rem;">
+                                <h4
+                                    style="font-size: 1.15rem; margin-bottom: 0.25rem; font-weight: 600; color: #f8fafc;">
+                                    Multimedia/Documentation in SITS Organization (Access Computer College)</h4>
+                                <p style="font-size: 0.95rem; line-height: 1.5; margin: 0;">Multimedia Officer of SITS
+                                    (Society of Information Technology Students), handling visual content, publication
+                                    designs, and creative assets for the organization.</p>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <h4
+                                    style="font-size: 1.15rem; margin-bottom: 0.25rem; font-weight: 600; color: #f8fafc;">
+                                    Treasure Hunting Game (2D Pixel Game Project)</h4>
+                                <p style="font-size: 0.95rem; line-height: 1.5; margin: 0;">Designed the visual assets
+                                    and interface for a 2D pixel game using an open-source code base, creating pixel art
+                                    using Piskel.</p>
+                            </div>
+                            <div>
+                                <h4
+                                    style="font-size: 1.15rem; margin-bottom: 0.25rem; font-weight: 600; color: #f8fafc;">
+                                    Banking System (Banking System Website Project)</h4>
+                                <p style="font-size: 0.95rem; line-height: 1.5; margin: 0;">Developed a simple dynamic
+                                    banking website using HTML, PHP, and MySQL.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section">
+            <div class="section-content">
+                <h2 class="reveal-text gs-header">Education</h2>
+                <div class="education-grid">
+                    <div class="edu-card glass-panel gs-edu-left">
+                        <i class="fa-solid fa-graduation-cap edu-icon"></i>
+                        <h3>Bachelor of Science in Information Technology</h3>
+                        <p class="edu-school">Access Computer and Technical Colleges</p>
+                        <p class="edu-year">2023 - 2026</p>
+                    </div>
+                    <div class="edu-card glass-panel gs-edu-right">
+                        <i class="fa-solid fa-certificate edu-icon"></i>
+                        <h3>Certifications</h3>
+                        <ul class="cert-list">
+                            <li>Electronic Products Assembly and Servicing (TESDA NCII) 2025</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="section-content">
+                <h2 class="reveal-text gs-header">Contacts</h2>
+                <div class="contact-links">
+                    <a href="javascript:void(0)"
+                        onclick="alert('My Mobile Numbers:\n\nTNT: +639518644717\nSMART: +639219815213')"
+                        class="contact-icon gs-icon"><i class="fa-solid fa-phone"></i></a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=earljohnhong@gmail.com" target="_blank"
+                        class="contact-icon gs-icon"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="https://www.linkedin.com/in/earl-hong" target="_blank" class="contact-icon gs-icon"><i
+                            class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://github.com/earljohnhong-spec" target="_blank" class="contact-icon gs-icon"><i
+                            class="fa-brands fa-github"></i></a>
+                    <a href="viber://chat?number=%2B639518644717" class="contact-icon gs-icon"><i
+                            class="fa-brands fa-viber"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
