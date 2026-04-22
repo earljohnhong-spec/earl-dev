@@ -74,47 +74,46 @@ document.addEventListener('DOMContentLoaded', () => {
             Flip.from(state, { duration: 1.2, ease: "power3.inOut" });
 
             // Listen for CSS width transition to FINISH — then reveal contents
-            sidebarEl.addEventListener('transitionend', function onSidebarDone(e) {
-                if (e.propertyName !== 'width') return;
-                sidebarEl.removeEventListener('transitionend', onSidebarDone);
+            // On mobile there is no width transition, so fire immediately
+            const isMobile = window.innerWidth <= 900;
 
-                // Top-to-bottom staggered reveal — items fade + slide + pop in
+            function revealSidebarContents() {
                 const tl = gsap.timeline();
-
-                // Header (brand + socials)
                 tl.fromTo('.sidebar-header',
                     { opacity: 0, visibility: 'hidden', y: -10, scale: 0.98 },
                     { opacity: 1, visibility: 'visible', pointerEvents: 'auto', y: 0, scale: 1, duration: 0.4, ease: "power2.out" }
                 );
-
-                // Nav container becomes visible
                 tl.fromTo('.sidebar-nav',
                     { opacity: 0, visibility: 'hidden' },
                     { opacity: 1, visibility: 'visible', pointerEvents: 'auto', duration: 0.2 },
                     "-=0.1"
                 );
-
-                // Each nav item staggers in one-by-one (80ms apart)
                 tl.fromTo('.sidebar-item',
                     { opacity: 0, y: -10, scale: 0.98 },
                     { opacity: 1, y: 0, scale: 1, duration: 0.35, stagger: 0.08, ease: "power2.out" },
                     "-=0.05"
                 );
-
-                // Active indicator appears alongside items
                 tl.fromTo('.active-indicator',
                     { opacity: 0, visibility: 'hidden' },
                     { opacity: 1, visibility: 'visible', duration: 0.3 },
                     "<"
                 );
-
-                // Footer last
                 tl.fromTo('.sidebar-footer',
                     { opacity: 0, visibility: 'hidden', y: -8 },
                     { opacity: 1, visibility: 'visible', pointerEvents: 'auto', y: 0, duration: 0.35, ease: "power2.out" },
                     "-=0.1"
                 );
-            });
+            }
+
+            if (isMobile) {
+                setTimeout(revealSidebarContents, 100);
+            } else {
+                sidebarEl.addEventListener('transitionend', function onSidebarDone(e) {
+                    if (e.propertyName !== 'width') return;
+                    sidebarEl.removeEventListener('transitionend', onSidebarDone);
+                    revealSidebarContents();
+                });
+            }
 
             // Reveal main content and unlock scroll
             gsap.to('.main-content', {
@@ -413,21 +412,16 @@ document.addEventListener('DOMContentLoaded', () => {
             { x: '0%', opacity: 1, duration: 0.5, ease: "power2.out", onComplete: () => expandedView.style.pointerEvents = "auto" }
         );
 
-        // Stagger inner grid images
-        const gridImgs = document.querySelectorAll('.grid-img');
-        gridImgs.forEach(img => img.style.transition = 'none');
+        // Show correct category grid, hide others
+        document.querySelectorAll('.expanded-grid').forEach(g => g.style.display = 'none');
+        const activeGrid = document.getElementById('grid-' + title);
+        if (activeGrid) activeGrid.style.display = '';
 
-        gsap.fromTo(gridImgs,
+        // Stagger grid slots
+        const gridSlots = activeGrid ? activeGrid.querySelectorAll('.grid-slot') : [];
+        gsap.fromTo(gridSlots,
             { scale: 0.8, opacity: 0 },
-            {
-                scale: 1, opacity: 1, duration: 0.4, stagger: 0.05, ease: "back.out(1.2)", delay: 0.2,
-                onComplete: () => {
-                    gridImgs.forEach(img => {
-                        img.style.transition = '';
-                        gsap.set(img, { clearProps: "transform" });
-                    });
-                }
-            }
+            { scale: 1, opacity: 1, duration: 0.4, stagger: 0.05, ease: "back.out(1.2)", delay: 0.2 }
         );
     };
 
@@ -460,28 +454,76 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Inner Project Viewer (Grid Click)
     // ==========================================
     const innerViewerOverlay = document.getElementById('innerViewerOverlay');
-    const innerThumbs = document.querySelectorAll('.iv-thumb');
-    const ivMainImg = document.getElementById('ivMainImg');
     const btnCloseExpanded = document.getElementById('btnCloseExpanded');
 
-    // Open inner viewer on grid img click
-    document.querySelectorAll('.grid-img').forEach(img => {
-        img.addEventListener('click', (e) => {
-            if (ivMainImg) {
-                ivMainImg.src = e.target.src;
-                gsap.fromTo(ivMainImg, { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" });
+    // Show cover image on slots that have a src in first slot-img
+    document.querySelectorAll('.grid-slot').forEach(slot => {
+        const imgs = slot.querySelectorAll('.slot-img');
+        const icon = slot.querySelector('i');
+        if (imgs[0] && imgs[0].src && imgs[0].src !== window.location.href) {
+            const cover = document.createElement('img');
+            cover.src = imgs[0].src;
+            cover.className = 'slot-cover';
+            slot.appendChild(cover);
+            if (icon) icon.style.display = 'none';
+        }
+    });
+
+    // Open inner viewer on grid slot click
+    document.querySelectorAll('.grid-slot').forEach(slot => {
+        slot.addEventListener('click', () => {
+            const imgs = slot.querySelectorAll('.slot-img');
+            const thumbSlots = document.querySelectorAll('#ivThumbnails .iv-thumb-slot');
+            const ivMainImg = document.getElementById('ivMainImg');
+            const ivMainPlaceholder = document.getElementById('ivMainPlaceholder');
+
+            thumbSlots.forEach((thumb, i) => {
+                const src = imgs[i] && imgs[i].src !== window.location.href ? imgs[i].src : '';
+                const thumbImg = thumb.querySelector('.thumb-img');
+                const thumbIcon = thumb.querySelector('i');
+                if (src) {
+                    thumbImg.src = src;
+                    thumbImg.style.display = 'block';
+                    thumbIcon.style.display = 'none';
+                } else {
+                    thumbImg.src = '';
+                    thumbImg.style.display = 'none';
+                    thumbIcon.style.display = '';
+                }
+                thumb.classList.remove('active-thumb');
+            });
+            thumbSlots[0].classList.add('active-thumb');
+
+            const firstSrc = imgs[0] && imgs[0].src !== window.location.href ? imgs[0].src : '';
+            if (firstSrc) {
+                ivMainImg.src = firstSrc;
+                ivMainImg.style.display = 'block';
+                ivMainPlaceholder.style.display = 'none';
+                gsap.fromTo(ivMainImg, { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(1.5)' });
+            } else {
+                ivMainImg.style.display = 'none';
+                ivMainPlaceholder.style.display = '';
             }
 
-            // Sync the first thumbnail with the clicked image
-            if (innerThumbs.length > 0) {
-                innerThumbs[0].src = e.target.src;
-                innerThumbs.forEach(t => t.classList.remove('active-thumb'));
-                innerThumbs[0].classList.add('active-thumb');
-            }
+            thumbSlots.forEach((thumb, i) => {
+                thumb.onclick = () => {
+                    const src = imgs[i] && imgs[i].src !== window.location.href ? imgs[i].src : '';
+                    thumbSlots.forEach(t => t.classList.remove('active-thumb'));
+                    thumb.classList.add('active-thumb');
+                    if (src) {
+                        ivMainImg.src = src;
+                        ivMainImg.style.display = 'block';
+                        ivMainPlaceholder.style.display = 'none';
+                        gsap.fromTo(ivMainImg, { opacity: 0.4 }, { opacity: 1, duration: 0.3 });
+                    } else {
+                        ivMainImg.style.display = 'none';
+                        ivMainPlaceholder.style.display = '';
+                    }
+                };
+            });
 
             if (innerViewerOverlay) {
                 innerViewerOverlay.classList.add('active');
-                // Transform close btn into a back arrow
                 if (btnCloseExpanded) {
                     btnCloseExpanded.classList.add('is-back');
                     btnCloseExpanded.querySelector('i').className = 'fa-solid fa-arrow-left';
@@ -490,20 +532,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // Thumbnail swap logic
-    if (innerThumbs.length > 0) {
-        innerThumbs.forEach(thumb => {
-            thumb.addEventListener('click', (e) => {
-                if (ivMainImg) {
-                    ivMainImg.src = e.target.src;
-                    gsap.fromTo(ivMainImg, { opacity: 0.4 }, { opacity: 1, duration: 0.3 });
-                }
-                innerThumbs.forEach(t => t.classList.remove('active-thumb'));
-                e.target.classList.add('active-thumb');
-            });
-        });
-    }
 
     // Helper: reset close button back to X (close expanded)
     function resetCloseBtn() {

@@ -16,16 +16,12 @@
 
 <body>
 
-    <!-- Mobile Hamburger & Overlay -->
-    <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
-        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-    </button>
+    <!-- Mobile Overlay -->
     <div class="overlay" id="overlay"
         style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:99;"></div>
 
-    <!-- Single Page Application Landing Intro Mode built directly into Sidebar -->
+    <!-- Sidebar / Mobile Top Navbar -->
     <aside class="sidebar glass intro-mode" id="sidebar">
-        <!-- Center overlay for the Intro -->
         <div class="intro-center" id="introCenter">
             <div id="brandIntroContainer">
                 <a href="#about" class="brand intro-size" id="brandTitle">earl-dev<span>/</span></a>
@@ -34,9 +30,7 @@
         </div>
 
         <div class="sidebar-header">
-            <div id="brandHeaderContainer">
-                <!-- Brand Title will be moved here by JS -->
-            </div>
+            <div id="brandHeaderContainer"></div>
             <div class="sidebar-socials">
                 <a href="https://www.linkedin.com/in/earl-hong" target="_blank" class="social-btn"
                     data-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
@@ -128,42 +122,67 @@
 
                     <!-- Embedded Expanded Project Grid -->
                     <div class="expanded-view" id="expandedView">
-                        <!-- Modern floating close button -->
                         <button class="expanded-close-btn" id="btnCloseExpanded" aria-label="Close">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
-                        <!-- Grid layout: 2 rows, horizontally scrolling -->
-                        <div class="expanded-grid">
-                            <img src="https://picsum.photos/600/400?random=101" alt="Proj" class="grid-img">
-                            <img src="https://picsum.photos/600/400?random=102" alt="Proj" class="grid-img">
-                            <img src="https://picsum.photos/600/400?random=103" alt="Proj" class="grid-img">
-                            <img src="https://picsum.photos/600/400?random=104" alt="Proj" class="grid-img">
-                            <img src="https://picsum.photos/600/400?random=105" alt="Proj" class="grid-img">
-                            <img src="https://picsum.photos/600/400?random=106" alt="Proj" class="grid-img">
-                            <img src="https://picsum.photos/600/400?random=107" alt="Proj" class="grid-img">
-                            <img src="https://picsum.photos/600/400?random=108" alt="Proj" class="grid-img">
-                            <img src="https://picsum.photos/600/400?random=109" alt="Proj" class="grid-img">
-                            <img src="https://picsum.photos/600/400?random=110" alt="Proj" class="grid-img">
+
+                        <!-- Development Projects Grid -->
+                        <div class="expanded-grid" id="grid-Development Projects">
+                            <div class="grid-slot" data-slot="0"><i class="fa-solid fa-camera"></i><img src="images/projects/dev-proj/bank1.png" class="slot-img"><img src="images/projects/dev-proj/bank2.png" class="slot-img"><img src="images/projects/dev-proj/bank3.png" class="slot-img"><img src="images/projects/dev-proj/bank4.png" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="1"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="2"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="3"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="4"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="5"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="6"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="7"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="8"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="9"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                        </div>
+
+                        <!-- UI/UX Designs Grid -->
+                        <div class="expanded-grid" id="grid-UI/UX Designs" style="display:none">
+                            <div class="grid-slot" data-slot="0"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="1"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="2"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="3"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="4"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="5"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="6"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="7"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="8"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="9"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                        </div>
+
+                        <!-- Graphic Designs Grid -->
+                        <div class="expanded-grid" id="grid-Graphic Designs" style="display:none">
+                            <div class="grid-slot" data-slot="0"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="1"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="2"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="3"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="4"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="5"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="6"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="7"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="8"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
+                            <div class="grid-slot" data-slot="9"><i class="fa-solid fa-camera"></i><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"><img src="" class="slot-img"></div>
                         </div>
 
                         <!-- Inner Viewer Overlay -->
                         <div class="inner-viewer-overlay" id="innerViewerOverlay">
                             <div class="inner-viewer-content" id="innerViewerContent">
-                                <!-- Left side: Gallery -->
                                 <div class="iv-gallery">
                                     <div class="iv-main-image">
-                                        <img src="https://picsum.photos/600/400?random=101" id="ivMainImg"
-                                            alt="Main Project Image">
+                                        <div class="iv-main-placeholder" id="ivMainPlaceholder"><i class="fa-solid fa-camera"></i></div>
+                                        <img src="" id="ivMainImg" alt="Main Project Image" style="display:none">
                                     </div>
-                                    <div class="iv-thumbnails">
-                                        <img src="https://picsum.photos/600/400?random=101"
-                                            class="iv-thumb active-thumb">
-                                        <img src="https://picsum.photos/600/400?random=102" class="iv-thumb">
-                                        <img src="https://picsum.photos/600/400?random=103" class="iv-thumb">
-                                        <img src="https://picsum.photos/600/400?random=104" class="iv-thumb">
+                                    <div class="iv-thumbnails" id="ivThumbnails">
+                                        <div class="iv-thumb-slot active-thumb"><i class="fa-solid fa-camera"></i><img src="" class="thumb-img"></div>
+                                        <div class="iv-thumb-slot"><i class="fa-solid fa-camera"></i><img src="" class="thumb-img"></div>
+                                        <div class="iv-thumb-slot"><i class="fa-solid fa-camera"></i><img src="" class="thumb-img"></div>
+                                        <div class="iv-thumb-slot"><i class="fa-solid fa-camera"></i><img src="" class="thumb-img"></div>
                                     </div>
                                 </div>
-                                <!-- Right side: Description -->
                                 <div class="iv-description">
                                     <h3>Project Highlights</h3>
                                     <p>Detailed insight into the creative and technical process. We emphasize clean
@@ -355,7 +374,7 @@
                         <i class="fa-solid fa-certificate edu-icon"></i>
                         <h3>Certifications</h3>
                         <ul class="cert-list">
-                            <li>Electronic Products Assembly and Servicing (TESDA NCII) 2025</li>
+                            <li class="epas">Electronic Products Assembly and Servicing (TESDA NCII) 2025</li>
                         </ul>
                     </div>
                 </div>
